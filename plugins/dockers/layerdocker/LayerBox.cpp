@@ -199,6 +199,7 @@ LayerBox::LayerBox()
     m_wdgLayerBox->bnLower->setIconSize(QSize(22, 22));
     m_wdgLayerBox->bnProperties->setIconSize(QSize(22, 22));
     m_wdgLayerBox->bnDuplicate->setIconSize(QSize(22, 22));
+    m_wdgLayerBox->bnClip->setIconSize(QSize(22, 22));
 
     m_wdgLayerBox->bnLower->setEnabled(false);
     m_wdgLayerBox->bnRaise->setEnabled(false);
@@ -500,6 +501,8 @@ void LayerBox::setViewManager(KisViewManager* kisview)
     connect(m_wdgLayerBox->bnAdd, SIGNAL(clicked()), this, SLOT(slotAddLayerBnClicked()));
 
     connectActionToButton(kisview, m_wdgLayerBox->bnDuplicate, "duplicatelayer");
+    // PS/CSP UX fork: one-click clipping, like Photoshop's "Create Clipping Mask"
+    connectActionToButton(kisview, m_wdgLayerBox->bnClip, "toggle_layer_inherit_alpha");
 
     KisActionManager *actionManager = kisview->actionManager();
 
@@ -1308,6 +1311,7 @@ void LayerBox::slotUpdateIcons() {
     m_wdgLayerBox->bnLower->setIcon(KisIconUtils::loadIcon("arrowdown"));
     m_wdgLayerBox->bnProperties->setIcon(KisIconUtils::loadIcon("properties"));
     m_wdgLayerBox->bnDuplicate->setIcon(KisIconUtils::loadIcon("duplicatelayer"));
+    m_wdgLayerBox->bnClip->setIcon(KisIconUtils::loadIcon("transparency-enabled"));
     m_wdgLayerBox->configureLayerDockerToolbar->setIcon(KisIconUtils::loadIcon("view-choose"));
 
     // call child function about needing to update icons

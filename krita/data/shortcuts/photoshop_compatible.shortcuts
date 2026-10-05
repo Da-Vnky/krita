@@ -415,3 +415,6 @@ windows_previous=none
 windows_tile=none
 workspaces=none
 zoom_to_100pct=Ctrl+0
+create_quick_clipping_group=none
+quick_ungroup=Ctrl+Shift+G
+toggle_layer_inherit_alpha=Ctrl+Alt+G

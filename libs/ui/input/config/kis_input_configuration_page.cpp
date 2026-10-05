@@ -147,10 +147,12 @@ void KisInputConfigurationPage::checkForConflicts()
 
 void KisInputConfigurationPage::setDefaults()
 {
+    // PS/CSP UX fork: Photoshop-style canvas navigation is the default profile.
+    const QString defaultProfile = QStringLiteral("Photoshop Compatible");
     KisSignalsBlocker(ui->profileComboBox, KisInputProfileManager::instance());
 
     QDir profileDir(KoResourcePaths::saveLocation("data", "input/", false));
-    KisConfig(false).setCurrentInputProfile("Krita Default");
+    KisConfig(false).setCurrentInputProfile(defaultProfile);
 
     if (profileDir.exists()) {
         QStringList entries = profileDir.entryList(QStringList() << "*.profile", QDir::Files | QDir::NoDotAndDotDot);
@@ -159,10 +161,10 @@ void KisInputConfigurationPage::setDefaults()
         }
 
         KisInputProfileManager::instance()->loadProfiles();
-        changeCurrentProfile("Krita Default");
-        KisInputProfileManager::instance()->setCurrentProfile(KisInputProfileManager::instance()->profile("Krita Default"));
+        changeCurrentProfile(defaultProfile);
+        KisInputProfileManager::instance()->setCurrentProfile(KisInputProfileManager::instance()->profile(defaultProfile));
     }
-    ui->profileComboBox->setCurrentItem("Krita Default");
+    ui->profileComboBox->setCurrentItem(defaultProfile);
 }
 
 void KisInputConfigurationPage::editProfilesButtonClicked()

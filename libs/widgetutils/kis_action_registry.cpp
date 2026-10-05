@@ -187,9 +187,11 @@ KisActionRegistry::KisActionRegistry()
     : d(new KisActionRegistry::Private(this))
 {
     KConfigGroup cg = KSharedConfig::openConfig()->group("Shortcut Schemes");
-    QString schemeName = cg.readEntry("Current Scheme", "Default");
+    // PS/CSP UX fork: Photoshop-compatible shortcuts are the default scheme.
+    // If the scheme file is missing we fall back to Krita's built-in defaults.
+    QString schemeName = cg.readEntry("Current Scheme", "photoshop_compatible");
     QString schemeFileName = KisKShortcutSchemesHelper::schemeFileLocations().value(schemeName);
-    if (!QFileInfo(schemeFileName).exists()) {
+    if (schemeName != QStringLiteral("Default") && !QFileInfo(schemeFileName).exists()) {
         schemeName = "Default";
     }
     loadShortcutScheme(schemeName);

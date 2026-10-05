@@ -461,7 +461,8 @@ void KisConfig::setLastUsedOutlineStyle(OutlineStyle style)
 
 bool KisConfig::separateEraserCursor(bool defaultValue) const
 {
-    return (defaultValue ? false : m_cfg.readEntry("separateEraserCursor", false));
+    // PS/CSP UX fork: show a distinct cursor while erasing so eraser mode is obvious
+    return (defaultValue ? true : m_cfg.readEntry("separateEraserCursor", true));
 }
 
 void KisConfig::setSeparateEraserCursor(bool value) const
@@ -645,7 +646,8 @@ void KisConfig::setUseDirtyPresets(bool value)
 
 bool KisConfig::useEraserBrushSize(bool defaultValue) const
 {
-   return (defaultValue ? false : m_cfg.readEntry("useEraserBrushSize", false));
+   // PS/CSP UX fork: the eraser remembers its own size, like a separate eraser tool
+   return (defaultValue ? true : m_cfg.readEntry("useEraserBrushSize", true));
 }
 
 void KisConfig::setUseEraserBrushSize(bool value)
@@ -656,7 +658,8 @@ void KisConfig::setUseEraserBrushSize(bool value)
 
 bool KisConfig::useEraserBrushOpacity(bool defaultValue) const
 {
-   return (defaultValue ? false : m_cfg.readEntry("useEraserBrushOpacity",false));
+   // PS/CSP UX fork: the eraser remembers its own opacity, like a separate eraser tool
+   return (defaultValue ? true : m_cfg.readEntry("useEraserBrushOpacity", true));
 }
 
 void KisConfig::setUseEraserBrushOpacity(bool value)

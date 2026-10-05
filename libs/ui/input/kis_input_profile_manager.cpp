@@ -280,8 +280,13 @@ void KisInputProfileManager::loadProfiles()
     QString currentProfile = cfg.currentInputProfile();
     if (d->profiles.size() > 0) {
         if (currentProfile.isEmpty() || !d->profiles.contains(currentProfile)) {
-            QString kritaDefault = QStringLiteral("Krita Default");
-            if (d->profiles.contains(kritaDefault)) {
+            // PS/CSP UX fork: prefer Photoshop-style canvas navigation,
+            // falling back to Krita's own profile if it isn't installed.
+            const QString psDefault = QStringLiteral("Photoshop Compatible");
+            const QString kritaDefault = QStringLiteral("Krita Default");
+            if (d->profiles.contains(psDefault)) {
+                d->currentProfile = d->profiles.value(psDefault);
+            } else if (d->profiles.contains(kritaDefault)) {
                 d->currentProfile = d->profiles.value(kritaDefault);
             } else {
                 d->currentProfile = d->profiles.begin().value();
